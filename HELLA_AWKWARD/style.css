@@ -1,0 +1,94 @@
+body{
+    background-image: linear-gradient(to right, #8252ff,#ff914d);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+header, footer{
+    margin: 2%;
+}
+
+/* NOTE CARD CONTAINER */
+
+
+.card-container{
+
+    display: flex;
+    justify-content: center;
+    justify-content: space-evenly;
+    
+    position: relative;
+}
+
+.card-container h1{
+    font-size: 57px;
+}
+
+.hella{
+    margin-top: 0%;
+}
+
+.awk{
+    /* position: absolute; */
+    bottom: 0%;
+}
+
+.real-talk{
+    background-color: #dec201;
+    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+    color: #7b0266;
+    text-align: center;
+    width: 221px;
+    height: 312px;
+    border-radius: 1%;
+}
+
+.dating{
+    background-color: #d2bcd2;
+        box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+    color: #e50e07;
+    text-align: center;
+    width: 221px;
+    height: 312px;
+    border-radius: 3%;
+}
+
+.relationships{
+    background-color: #00383e;
+    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);    
+    color: #1eb2e0;
+    text-align: center;
+    width: 221px;
+    height: 312px;
+    border-radius: 3%;
+}
+
+.sex{
+    background-color: #36008a;
+    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+    color: #d3004c;
+    text-align: center;
+    width: 221px;
+    height: 312px;
+    border-radius: 3%;
+}
+
+/* NOTE ANIMATION */
+.real-talk:hover{
+    transform: scale(1.5);
+    transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
+}
+.dating:hover{
+    transform: scale(1.5);
+    transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
+}
+.relationships:hover{
+    transform: scale(1.5);
+    transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
+}
+.sex :hover{
+    transform: scale(1.5);
+    transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
+}
+
+
