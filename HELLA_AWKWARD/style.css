@@ -4,24 +4,87 @@ body{
     font-weight: 600;
 }
 
-header, footer{
+header{
     margin: 2%;
 }
 
 /* NOTE CARD CONTAINER */
 
-
 .card-container{
-
     display: flex;
     justify-content: center;
     justify-content: space-evenly;
-    
-    position: relative;
+    flex-wrap: wrap;
 }
 
 .card-container h1{
-    font-size: 57px;
+    font-size: 60px;
+}
+
+.card-container p{
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+}
+  
+.real-talk{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #dec201;
+      box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+      color: #7b0266;
+      text-align: center;
+      width: 221px;
+      height: 312px;
+      border-radius: 6%;
+      cursor: pointer;
+  }
+
+.dating{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d2bcd2;
+    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+    color: #e50e07;
+    text-align: center;
+    width: 221px;
+    height: 312px;
+    border-radius: 6%;
+    cursor: pointer;
+}
+
+.relationships{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #00383e;
+    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);    
+    color: #1eb2e0;
+    text-align: center;
+    width: 221px;
+    height: 312px;
+    border-radius: 6%;
+    cursor: pointer;
+}
+
+.sex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #36008a;
+    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+    color: #d3004c;
+    text-align: center;
+    width: 221px;
+    height: 312px;
+    border-radius: 6%;
+    cursor: pointer;
 }
 
 .hella{
@@ -30,65 +93,72 @@ header, footer{
 
 .awk{
     /* position: absolute; */
-    bottom: 0%;
-}
-
-.real-talk{
-    background-color: #dec201;
-    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
-    color: #7b0266;
-    text-align: center;
-    width: 221px;
-    height: 312px;
-    border-radius: 1%;
-}
-
-.dating{
-    background-color: #d2bcd2;
-        box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
-    color: #e50e07;
-    text-align: center;
-    width: 221px;
-    height: 312px;
-    border-radius: 3%;
-}
-
-.relationships{
-    background-color: #00383e;
-    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);    
-    color: #1eb2e0;
-    text-align: center;
-    width: 221px;
-    height: 312px;
-    border-radius: 3%;
-}
-
-.sex{
-    background-color: #36008a;
-    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
-    color: #d3004c;
-    text-align: center;
-    width: 221px;
-    height: 312px;
-    border-radius: 3%;
+    margin-bottom: 0%;
 }
 
 /* NOTE ANIMATION */
+
 .real-talk:hover{
-    transform: scale(1.5);
+    /* transform: scale(1.2); */
+    transform: translateY(-30px);
     transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
 }
+
 .dating:hover{
-    transform: scale(1.5);
+    transform: translateY(-30px);
     transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
 }
 .relationships:hover{
-    transform: scale(1.5);
+    transform: translateY(-30px);
     transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
 }
-.sex :hover{
-    transform: scale(1.5);
+.sex:hover{
+    transform: translateY(-30px);
     transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
 }
 
+/* NOTE CHECKBOX */
 
+/* Hide the checkbox */
+input[type="checkbox"] {
+    display: none;
+}
+
+/* Change the style when the checkbox is checked */
+input[type="checkbox"]:checked + .real-talk {
+    transform: translateY(-30px);
+}
+input[type="checkbox"]:checked + .dating {
+    transform: translateY(-30px);
+}
+input[type="checkbox"]:checked + .relationships {
+    transform: translateY(-30px);
+}
+input[type="checkbox"]:checked + .sex {
+    transform: translateY(-30px);
+}
+
+/* BUTTON */
+
+.btn-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+button {
+    background-color: #8252ff;
+    color: #fff;
+    padding: 15px 25px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #fff;
+    color: #8252ff;
+    transition: all 0.3s ease-in-out;
+}
