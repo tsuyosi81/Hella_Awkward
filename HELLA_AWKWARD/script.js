@@ -1,83 +1,76 @@
-// Initialize a Map with string keys and arrays as values
-// key is category
-// value is a string array of questions
-const cardDeck = new Map([
-    ["real talk", []],
-    ["dating", []],
-    ["relationships", []],
-    ["sex", []]
-  ]);
-  
-const real_talk = cardDeck.get("real talk");
-const dating = cardDeck.get("dating");
-const relationships = cardDeck.get("relationships");
-const sex = cardDeck.get("sex");
+const cards = document.querySelectorAll('.card');
+const nextButton = document.getElementById('next-button');
 
-// Add cards to a specific category
-real_talk.push("A", "2", "3");
-sex.push("K", "Q", "J");
-relationships.push("hello");
-dating.push("this","is","a","test");
+let startX = 0;
+let currentX = 0;
 
-// Print the Map
-console.log(cardDeck);
+const handleStart = (event) => {
+    startX = event.type === 'touchstart' ? event.touches[0].clientX : event.clientX;
+    const card = event.currentTarget;
+    card.style.transition = 'none';
+};
 
-function randomCard(category) {
-const randomIndex = Math.floor(Math.random() * category.length);
-return category[randomIndex];
-}
+const handleMove = (event) => {
+    if (!startX) return;
 
-console.log("Random Card from \"sex\":", randomCard(sex));
-console.log("Random Card from \"relationships\":", randomCard(relationships));
-console.log("Random Card from \"dating\":", randomCard(dating));
+    currentX = event.type === 'touchmove' ? event.touches[0].clientX : event.clientX;
+    const deltaX = currentX - startX;
+    const card = event.currentTarget;
 
-// Toggle section ///////////////////////////////////////////
-const flag_real_talk = 0;
-const flag_relationship = 0;
-const flag_sex = 0;
-const flag_dating = 0;
+    card.style.transform = `translateX(${deltaX}px) rotate(${deltaX * 0.1}deg)`;
+};
 
-function toggle_flag(flag_category){
-if (flag_category) flag_category = 0;
-if (!flag_category) flag_category = 1;
-}
+const handleEnd = (event) => {
+    const card = event.currentTarget;
+    const deltaX = currentX - startX;
+    const moveOutWidth = window.innerWidth / 2;
 
-// Play Game Section ///////////////////////////////////////
-
-function shuffle(){
-    let queue = [];
-
-    var play_stack = [];
-
-    if (flag_dating) play_stack.concat(dating);
-    if (flag_relationship) play_stack.concat(relationship);
-    if (flag_sex) play_stack.concat(sex);
-    if (flag_real_talk) play_stack.concat(real_talk);
-
-    console.log(play_stack);
-
-    // Enqueue (Add elements to the queue)
-    queue.push(1); // Queue: [1]
-    queue.push(2); // Queue: [1, 2]
-    queue.push(3); // Queue: [1, 2, 3]
-
-    // Dequeue (Remove elements from the front of the queue)
-    let frontElement = queue.shift(); // Removes 1, Queue: [2, 3]
-
-    console.log(frontElement); // Output: 1
-    console.log(queue);        // Output: [2, 3]
+    if (Math.abs(deltaX) > moveOutWidth) {
+        swipeCard(card, deltaX > 0 ? 1 : -1);
+    } else {
+        card.style.transition = 'transform 0.5s ease-out';
+        card.style.transform = 'translateX(0) rotate(0)';
     }
 
-function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-      // Generate a random index from 0 to i
-      const j = Math.floor(Math.random() * (i + 1));
-  
-      // Swap elements at indices i and j
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
+    startX = 0;
+};
 
-flag_relationship = 1;
-shuffle();
+const swipeCard = (card, direction) => {
+    const moveOutWidth = window.innerWidth / 2;
+    card.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
+    card.style.transform = `translateX(${direction * moveOutWidth * 2}px) rotate(${direction * 30}deg)`;
+    card.style.opacity = '0';
+
+    // Remove card after animation
+    setTimeout(() => {
+        card.remove();
+        updateCardStack();
+    }, 500);
+};
+
+const updateCardStack = () => {
+    const remainingCards = document.querySelectorAll('.card');
+    remainingCards.forEach((card, index) => {
+        card.style.zIndex = remainingCards.length - index;
+        card.style.transform = `scale(${1 - index * 0.05}) translateY(${index * 10}px)`;
+    });
+};
+
+// Programmatically swipe the next card
+nextButton.addEventListener('click', () => {
+    const topCard = document.querySelector('.card');
+    if (topCard) {
+        swipeCard(topCard, 1); // Swipe to the right
+    }
+});
+
+// Attach event listeners to cards
+cards.forEach((card) => {
+    card.addEventListener('mousedown', handleStart);
+    card.addEventListener('mousemove', handleMove);
+    card.addEventListener('mouseup', handleEnd);
+
+    card.addEventListener('touchstart', handleStart);
+    card.addEventListener('touchmove', handleMove);
+    card.addEventListener('touchend', handleEnd);
+});

@@ -1,146 +1,129 @@
-body{
-    background-image: linear-gradient(to right, #8252ff,#ff914d);
+/* General Styles */
+body {
+    background-image: linear-gradient(to right, #8252ff, #ff914d);
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
+    margin: 0;
 }
 
-header{
+header {
     margin: 2%;
 }
 
-/* NOTE CARD CONTAINER */
-
-.card-container{
+/* Card Container */
+.card-container {
     display: flex;
-    justify-content: center;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    gap: 20px;
 }
 
-.card-container h1{
+.card-container h1 {
     font-size: 60px;
 }
 
-.card-container p{
+.card-container p {
     display: flex;
     justify-content: center;
-    justify-content: space-around;
-}
-  
-.real-talk{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: #dec201;
-      box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
-      color: #7b0266;
-      text-align: center;
-      width: 221px;
-      height: 312px;
-      border-radius: 6%;
-      cursor: pointer;
-  }
-
-.dating{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #d2bcd2;
-    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
-    color: #e50e07;
-    text-align: center;
-    width: 221px;
-    height: 312px;
-    border-radius: 6%;
-    cursor: pointer;
-}
-
-.relationships{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #00383e;
-    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);    
-    color: #1eb2e0;
-    text-align: center;
-    width: 221px;
-    height: 312px;
-    border-radius: 6%;
-    cursor: pointer;
-}
-
-.sex{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #36008a;
-    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
-    color: #d3004c;
-    text-align: center;
-    width: 221px;
-    height: 312px;
-    border-radius: 6%;
-    cursor: pointer;
+    margin: 0;
 }
 
 .hella{
-    margin-top: 0%;
+margin-top: 0%;
 }
 
 .awk{
-    /* position: absolute; */
     margin-bottom: 0%;
 }
 
-/* NOTE ANIMATION */
-
-.real-talk:hover{
-    /* transform: scale(1.2); */
-    transform: translateY(-30px);
-    transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
+/* Shared Card Styling */
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 221px;
+    height: 312px;
+    border-radius: 6%;
+    cursor: pointer;
+    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
 }
 
-.dating:hover{
-    transform: translateY(-30px);
-    transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
-}
-.relationships:hover{
-    transform: translateY(-30px);
-    transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
-}
-.sex:hover{
-    transform: translateY(-30px);
-    transition: transform 0.5s ease-in-out, box-shadow 0.3s ease;
+/* Individual Card Colors */
+.real-talk {
+    background-color: #dec201;
+    color: #7b0266;
 }
 
-/* NOTE CHECKBOX */
+.dating {
+    background-color: #d2bcd2;
+    color: #e50e07;
+}
 
-/* Hide the checkbox */
+.relationships {
+    background-color: #00383e;
+    color: #1eb2e0;
+}
+
+.sex {
+    background-color: #36008a;
+    color: #d3004c;
+}
+
+/* Add the bounce animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(-30px);
+        box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    25% {
+        transform: translateY(-15px);
+        box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+    50% {
+        transform: translateY(-40px);
+        box-shadow: 25px 25px 15px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    75% {
+        transform: translateY(-20px);
+        box-shadow: 18px 18px 12px rgba(0, 0, 0, 0.18), 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+}
+
+
+/* Hide the Checkbox */
 input[type="checkbox"] {
     display: none;
 }
-
-/* Change the style when the checkbox is checked */
-input[type="checkbox"]:checked + .real-talk {
+/* Apply the bounce animation when checkbox is selected */
+input[type="checkbox"]:checked + .card {
+    animation: bounce 3s ease-in-out infinite;
+    border: 3px solid #ffde59;
     transform: translateY(-30px);
-}
-input[type="checkbox"]:checked + .dating {
-    transform: translateY(-30px);
-}
-input[type="checkbox"]:checked + .relationships {
-    transform: translateY(-30px);
-}
-input[type="checkbox"]:checked + .sex {
-    transform: translateY(-30px);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
 }
 
-/* BUTTON */
+/* Existing hover effect */
+.card:hover {
+    transform: translateY(-30px);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s ease-in-out, box-shadow 0.5s ease;
+}
 
-.btn-container{
+/* Return to Original Position Smoothly */
+.card {
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
+    border: 3px solid transparent;
+
+}
+
+
+/* Button */
+.btn-container {
     display: flex;
     justify-content: center;
     margin-top: 5%;
