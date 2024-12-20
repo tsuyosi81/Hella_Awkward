@@ -1,13 +1,29 @@
-/* General Styles */
+:root {
+    --primary: #2e0219;
+    --secondary: #ff758f;
+}
+
 body {
-    background-image: linear-gradient(to right, #8252ff, #ff914d);
+    background-color: var(--primary);
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     margin: 0;
 }
 
 header {
+    text-align: center;
+    font-size: 7.5rem;
     margin: 2%;
+    color: var(--secondary);
+    margin: 0;
+}
+
+h2 {
+    text-align: center;
+    font-size: 3rem;
+    color: white;
+    margin: 0;
+    margin-bottom: 3rem;
 }
 
 /* Card Container */
@@ -28,11 +44,11 @@ header {
     margin: 0;
 }
 
-.kinda{
-margin-top: 0%;
+.hella {
+    margin-top: 0%;
 }
 
-.weird{ 
+.awk {
     margin-bottom: 0%;
 }
 
@@ -75,31 +91,36 @@ margin-top: 0%;
 
 /* Add the bounce animation */
 @keyframes bounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(-30px);
         box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
     }
+
     25% {
         transform: translateY(-15px);
         box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.06);
     }
+
     50% {
         transform: translateY(-40px);
         box-shadow: 25px 25px 15px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     75% {
         transform: translateY(-20px);
         box-shadow: 18px 18px 12px rgba(0, 0, 0, 0.18), 0 1px 3px rgba(0, 0, 0, 0.08);
     }
 }
 
-
 /* Hide the Checkbox */
 input[type="checkbox"] {
     display: none;
 }
+
 /* Apply the bounce animation when checkbox is selected */
-input[type="checkbox"]:checked + .card {
+input[type="checkbox"]:checked+.card {
     animation: bounce 3s ease-in-out infinite;
     border: 3px solid #ffde59;
     transform: translateY(-30px);
@@ -121,8 +142,6 @@ input[type="checkbox"]:checked + .card {
 
 }
 
-
-/* Button */
 .btn-container {
     display: flex;
     justify-content: center;
@@ -130,14 +149,15 @@ input[type="checkbox"]:checked + .card {
 }
 
 button {
-    background-color: #8252ff;
-    color: #fff;
-    padding: 15px 25px;
-    font-size: 14px;
+    background-color: var(--secondary);
+    color: var(--primary);
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    font-size: 2rem;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    border-radius: 5px;
+    border-radius: .5rem;
 }
 
 button:hover {
