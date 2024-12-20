@@ -2,6 +2,7 @@
 if (window.location.pathname.endsWith("play.html")) {
 
     document.addEventListener('DOMContentLoaded', () => {
+
         initDisplayCards();
         const cardContainer = document.querySelector('.card-container');
         const cards = document.querySelectorAll('.card');

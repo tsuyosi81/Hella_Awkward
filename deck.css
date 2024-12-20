@@ -21,7 +21,7 @@ body {
 
 
 .card {
-    background-color: white;
+    /* background-color: white; */
     position: absolute;
     display: flex;
     flex-direction: column;
