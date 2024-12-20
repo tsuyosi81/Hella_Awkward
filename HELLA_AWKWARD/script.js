@@ -1,76 +1,63 @@
-const cards = document.querySelectorAll('.card');
-const nextButton = document.getElementById('next-button');
+'use strict';
 
-let startX = 0;
-let currentX = 0;
+document.addEventListener('DOMContentLoaded', () => {
+    const cardContainer = document.querySelector('.card-container');
+    const cards = document.querySelectorAll('.card');
+    const nextButton = document.getElementById('next-button');
 
-const handleStart = (event) => {
-    startX = event.type === 'touchstart' ? event.touches[0].clientX : event.clientX;
-    const card = event.currentTarget;
-    card.style.transition = 'none';
-};
-
-const handleMove = (event) => {
-    if (!startX) return;
-
-    currentX = event.type === 'touchmove' ? event.touches[0].clientX : event.clientX;
-    const deltaX = currentX - startX;
-    const card = event.currentTarget;
-
-    card.style.transform = `translateX(${deltaX}px) rotate(${deltaX * 0.1}deg)`;
-};
-
-const handleEnd = (event) => {
-    const card = event.currentTarget;
-    const deltaX = currentX - startX;
-    const moveOutWidth = window.innerWidth / 2;
-
-    if (Math.abs(deltaX) > moveOutWidth) {
-        swipeCard(card, deltaX > 0 ? 1 : -1);
-    } else {
-        card.style.transition = 'transform 0.5s ease-out';
-        card.style.transform = 'translateX(0) rotate(0)';
+    function initCards() {
+        const newCards = document.querySelectorAll('.card:not(.removed)');
+        newCards.forEach((card, index) => {
+            card.style.zIndex = cards.length - index;
+            card.style.transform = `scale(${1 - index * 0.05}) translateY(-${index * 30}px)`;
+            card.style.opacity = 1 - index * 0.2;
+        });
     }
 
-    startX = 0;
-};
+    initCards();
 
-const swipeCard = (card, direction) => {
-    const moveOutWidth = window.innerWidth / 2;
-    card.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
-    card.style.transform = `translateX(${direction * moveOutWidth * 2}px) rotate(${direction * 30}deg)`;
-    card.style.opacity = '0';
+    cards.forEach((card) => {
+        const hammer = new Hammer(card);
+        
+        // Handle swipe/pan gestures
+        hammer.on('pan', (event) => {
+            card.classList.add('moving');
+            const x = event.deltaX;
+            const y = event.deltaY;
+            const rotation = x / 20;
+            card.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+        });
 
-    // Remove card after animation
-    setTimeout(() => {
-        card.remove();
-        updateCardStack();
-    }, 500);
-};
+        // Handle end of pan gesture
+        hammer.on('panend', (event) => {
+            card.classList.remove('moving');
+            const keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
 
-const updateCardStack = () => {
-    const remainingCards = document.querySelectorAll('.card');
-    remainingCards.forEach((card, index) => {
-        card.style.zIndex = remainingCards.length - index;
-        card.style.transform = `scale(${1 - index * 0.05}) translateY(${index * 10}px)`;
+            if (keep) {
+                card.style.transform = '';
+            } else {
+                const moveOutWidth = document.body.clientWidth;
+                const endX = event.deltaX > 0 ? moveOutWidth : -moveOutWidth;
+                const endY = event.deltaY;
+                card.style.transform = `translate(${endX}px, ${endY}px) rotate(${event.deltaX > 0 ? 30 : -30}deg)`;
+                card.classList.add('removed');
+                setTimeout(() => {
+                    cardContainer.removeChild(card);
+                    initCards();
+                }, 300);
+            }
+        });
     });
-};
 
-// Programmatically swipe the next card
-nextButton.addEventListener('click', () => {
-    const topCard = document.querySelector('.card');
-    if (topCard) {
-        swipeCard(topCard, 1); // Swipe to the right
-    }
-});
-
-// Attach event listeners to cards
-cards.forEach((card) => {
-    card.addEventListener('mousedown', handleStart);
-    card.addEventListener('mousemove', handleMove);
-    card.addEventListener('mouseup', handleEnd);
-
-    card.addEventListener('touchstart', handleStart);
-    card.addEventListener('touchmove', handleMove);
-    card.addEventListener('touchend', handleEnd);
+    // Next button functionality
+    nextButton.addEventListener('click', () => {
+        const currentCard = document.querySelector('.card:not(.removed)');
+        if (!currentCard) return;
+        currentCard.classList.add('removed');
+        currentCard.style.transform = `translate(${window.innerWidth}px, -100px) rotate(30deg)`;
+        setTimeout(() => {
+            cardContainer.removeChild(currentCard);
+            initCards();
+        }, 300);
+    });
 });
