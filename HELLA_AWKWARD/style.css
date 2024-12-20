@@ -1,6 +1,26 @@
 :root {
     --primary: #2e0219;
     --secondary: #ff758f;
+
+    --real-talk-bg: #dec201;
+    --real-talk-text: #7b0266;
+
+    --dating-bg: #d2bcd2;
+    --dating-text: #e50e07;
+
+    --relationships-bg: #00383e;
+    --relationships-text: #1eb2e0;
+
+    --sex-bg: #36008a;
+    --sex-text: #d3004c;
+
+    --card-h1-size: 4.75rem;
+    --card-p-size: 1.25rem;
+    --card-height: 18rem;
+    --card-width: 12.5rem;
+    --card-border-radius: 6%;
+    --card-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+
 }
 
 body {
@@ -13,7 +33,6 @@ body {
 header {
     text-align: center;
     font-size: 7.5rem;
-    margin: 2%;
     color: var(--secondary);
     margin: 0;
 }
@@ -26,33 +45,48 @@ h2 {
     margin-bottom: 3rem;
 }
 
+.real-talk {
+    background-color: var(--real-talk-bg);
+    color: var(--real-talk-text);
+}
+
+.dating {
+    background-color: var(--dating-bg);
+    color: var(--dating-text);
+}
+
+.relationships {
+    background-color: var(--relationships-bg);
+    color: var(--relationships-text);
+}
+
+.sex {
+    background-color: var(--sex-bg);
+    color: var(--sex-text);
+}
+
 /* Card Container */
 .card-container {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    gap: 20px;
+    margin: 2rem 0;
+    gap: 1.5rem;
 }
 
-.card-container h1 {
-    font-size: 60px;
+.card h1 {
+    font-size: var(--card-h1-size);
+    margin: 0;
+    line-height: .8;
 }
 
-.card-container p {
+.card p {
     display: flex;
     justify-content: center;
     margin: 0;
+    font-size: var(--card-p-size);
 }
 
-.hella {
-    margin-top: 0%;
-}
-
-.awk {
-    margin-bottom: 0%;
-}
-
-/* Shared Card Styling */
 .card {
     display: flex;
     flex-direction: column;
@@ -60,57 +94,32 @@ h2 {
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    width: 221px;
-    height: 312px;
-    border-radius: 6%;
+    width: var(--card-width);
+    height: var(--card-height);
+    border-radius: var(--card-border-radius);
     cursor: pointer;
-    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
-    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
+    box-shadow: var(--card-shadow);
+
+    /* transition: transform 0.5s ease-in-out, box-shadow 0.5s ease; */
 }
 
-/* Individual Card Colors */
-.real-talk {
-    background-color: #dec201;
-    color: #7b0266;
-}
-
-.dating {
-    background-color: #d2bcd2;
-    color: #e50e07;
-}
-
-.relationships {
-    background-color: #00383e;
-    color: #1eb2e0;
-}
-
-.sex {
-    background-color: #36008a;
-    color: #d3004c;
-}
-
-/* Add the bounce animation */
 @keyframes bounce {
 
     0%,
     100% {
-        transform: translateY(-30px);
-        box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+        transform: translateY(-1.5rem);
     }
 
     25% {
-        transform: translateY(-15px);
-        box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.06);
+        transform: translateY(-.5rem);
     }
 
     50% {
-        transform: translateY(-40px);
-        box-shadow: 25px 25px 15px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.1);
+        transform: translateY(-1.5rem);
     }
 
     75% {
-        transform: translateY(-20px);
-        box-shadow: 18px 18px 12px rgba(0, 0, 0, 0.18), 0 1px 3px rgba(0, 0, 0, 0.08);
+        transform: translateY(-.5rem);
     }
 }
 
@@ -122,30 +131,34 @@ input[type="checkbox"] {
 /* Apply the bounce animation when checkbox is selected */
 input[type="checkbox"]:checked+.card {
     animation: bounce 3s ease-in-out infinite;
-    border: 3px solid #ffde59;
-    transform: translateY(-30px);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
+    border: .25rem solid var(--secondary);
+    box-shadow: var(--card-shadow);
+
+    /* transform: translateY(-30px); */
+    /* transition: transform 0.5s ease-in-out, box-shadow 0.5s ease; */
 }
 
 /* Existing hover effect */
 .card:hover {
-    transform: translateY(-30px);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
-    transition: transform 0.1s ease-in-out, box-shadow 0.5s ease;
+    transform: translateY(-1.5rem);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s ease-in-out, box-shadow 0.5s ease;
 }
 
 /* Return to Original Position Smoothly */
 .card {
     transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
-    border: 3px solid transparent;
+    border: .25rem solid transparent;
+    padding: 1rem;
+
 
 }
+
 
 .btn-container {
     display: flex;
     justify-content: center;
-    margin-top: 5%;
+    margin: 5% 0;
 }
 
 button {
@@ -161,7 +174,7 @@ button {
 }
 
 button:hover {
-    background-color: #fff;
-    color: #8252ff;
+    background-color: white;
+    color: var(--primary);
     transition: all 0.3s ease-in-out;
 }
