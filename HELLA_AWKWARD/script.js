@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const newCard = document.createElement('div');
         newCard.className = 'card';
         newCard.innerHTML = `
-            <p style="text-decoration: underline;">New Card<br><br>What's your next move?</p>
-            <h1 class="weird">New</h1>
+            <p><span style="text-decoration: underline;">New Card</span><br><br>How has your partner made you a better person?</p>
+            <h1 class="weird">Weird</h1>
         `;
         cardContainer.appendChild(newCard);
 
