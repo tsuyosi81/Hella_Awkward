@@ -19,6 +19,7 @@ body {
     height: 20rem;
 }
 
+
 .card {
     background-color: white;
     position: absolute;
@@ -31,6 +32,32 @@ body {
     box-shadow: var(--card-shadow);
     transition: transform 0.5s, opacity 0.5s;
     cursor: grab;
+}
+
+.real_talk {
+    background-color: var(--real-talk-bg);
+    color: var(--real-talk-text);
+}
+
+.dating {
+    background-color: var(--dating-bg);
+    color: var(--dating-text);
+}
+
+.relationships {
+    background-color: var(--relationships-bg);
+    color: var(--relationships-text);
+}
+
+.sex {
+    background-color: var(--sex-bg);
+    color: var(--sex-text);
+}
+
+.card:hover {
+    transform: translateY(-.5rem);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s ease-in-out, box-shadow 0.5s ease;
 }
 
 .card-text-container {
