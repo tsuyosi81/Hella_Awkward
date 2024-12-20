@@ -1,64 +1,147 @@
+/* General Styles */
 body {
-    background: linear-gradient(to right, #8252ff, #ff914d);
+    background-image: linear-gradient(to right, #8252ff, #ff914d);
     font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     margin: 0;
+}
+
+header {
+    margin: 2%;
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card-container h1 {
+    font-size: 60px;
+}
+
+.card-container p {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.hella{
+margin-top: 0%;
+}
+
+.awk{
+    margin-bottom: 0%;
+}
+
+/* Shared Card Styling */
+.card {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 221px;
+    height: 312px;
+    border-radius: 6%;
+    cursor: pointer;
+    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
 }
 
-.card-container {
-    position: relative;
-    width: 300px;
-    height: 400px;
+/* Individual Card Colors */
+.real-talk {
+    background-color: #dec201;
+    color: #7b0266;
 }
 
+.dating {
+    background-color: #d2bcd2;
+    color: #e50e07;
+}
+
+.relationships {
+    background-color: #00383e;
+    color: #1eb2e0;
+}
+
+.sex {
+    background-color: #36008a;
+    color: #d3004c;
+}
+
+/* Add the bounce animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(-30px);
+        box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    25% {
+        transform: translateY(-15px);
+        box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+    50% {
+        transform: translateY(-40px);
+        box-shadow: 25px 25px 15px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    75% {
+        transform: translateY(-20px);
+        box-shadow: 18px 18px 12px rgba(0, 0, 0, 0.18), 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+}
+
+
+/* Hide the Checkbox */
+input[type="checkbox"] {
+    display: none;
+}
+/* Apply the bounce animation when checkbox is selected */
+input[type="checkbox"]:checked + .card {
+    animation: bounce 3s ease-in-out infinite;
+    border: 3px solid #ffde59;
+    transform: translateY(-30px);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
+}
+
+/* Existing hover effect */
+.card:hover {
+    transform: translateY(-30px);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s ease-in-out, box-shadow 0.5s ease;
+}
+
+/* Return to Original Position Smoothly */
 .card {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
+    transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
+    border: 3px solid transparent;
+
+}
+
+
+/* Button */
+.btn-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.card:nth-child(1) {
-    background-color: #ffcccb;
-}
-
-.card:nth-child(2) {
-    background-color: #90ee90;
-}
-
-.card:nth-child(3) {
-    background-color: #add8e6;
-}
-
-.card:nth-child(4) {
-    background-color: #ffffe0;
+    margin-top: 5%;
 }
 
 button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
     background-color: #8252ff;
-    color: white;
+    color: #fff;
+    padding: 15px 25px;
+    font-size: 14px;
+    border: none;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
 }
 
 button:hover {
-    background-color: white;
+    background-color: #fff;
     color: #8252ff;
-    border: 1px solid #8252ff;
+    transition: all 0.3s ease-in-out;
 }
