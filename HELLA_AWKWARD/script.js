@@ -4,50 +4,93 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardContainer = document.querySelector('.card-container');
     const cards = document.querySelectorAll('.card');
     const nextButton = document.getElementById('next-button');
+    let isPanActive = false;
+    let currentCard = null;
+    let lastX = 0;
+    let lastY = 0;
 
     function initCards() {
         const newCards = document.querySelectorAll('.card:not(.removed)');
         newCards.forEach((card, index) => {
-            card.style.zIndex = cards.length - index;
+            card.style.zIndex = newCards.length - index;
             card.style.transform = `scale(${1 - index * 0.05}) translateY(-${index * 30}px)`;
-            card.style.opacity = 1 - index * 0.2;
         });
     }
 
-    initCards();
+    function createNewCard() {
+        const newCard = document.createElement('div');
+        newCard.className = 'card';
+        newCard.innerHTML = `
+            <p style="text-decoration: underline;">New Card<br><br>What's your next move?</p>
+            <h1 class="weird">New</h1>
+        `;
+        cardContainer.appendChild(newCard);
 
-    cards.forEach((card) => {
+        // Attach pan listeners to the new card
+        attachPanListeners(newCard);
+    }
+
+    function attachPanListeners(card) {
         const hammer = new Hammer(card);
-        
-        // Handle swipe/pan gestures
-        hammer.on('pan', (event) => {
-            card.classList.add('moving');
-            const x = event.deltaX;
-            const y = event.deltaY;
-            const rotation = x / 20;
-            card.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+
+        hammer.on('panstart', (event) => {
+            isPanActive = true;
+            currentCard = card;
+            currentCard.classList.add('moving');
         });
 
-        // Handle end of pan gesture
+        hammer.on('panmove', (event) => {
+            if (!isPanActive || !currentCard) return;
+
+            // Use requestAnimationFrame to avoid layout thrashing
+            requestAnimationFrame(() => {
+                const deltaX = event.deltaX;
+                const deltaY = event.deltaY;
+
+                // Apply the translation and rotation directly
+                const rotation = deltaX / 20;
+                currentCard.style.transform = `translate(${deltaX}px, ${deltaY}px) rotate(${rotation}deg)`;
+            });
+        });
+
         hammer.on('panend', (event) => {
-            card.classList.remove('moving');
-            const keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+            if (!isPanActive || !currentCard) return;
+
+            isPanActive = false;
+
+            const deltaX = event.deltaX;
+            const deltaY = event.deltaY;
+
+            const moveOutWidth = document.body.clientWidth;
+            const endX = deltaX > 0 ? moveOutWidth : -moveOutWidth;
+
+            const keep = Math.abs(deltaX) < 80;
 
             if (keep) {
-                card.style.transform = '';
+                currentCard.style.transform = '';
             } else {
-                const moveOutWidth = document.body.clientWidth;
-                const endX = event.deltaX > 0 ? moveOutWidth : -moveOutWidth;
-                const endY = event.deltaY;
-                card.style.transform = `translate(${endX}px, ${endY}px) rotate(${event.deltaX > 0 ? 30 : -30}deg)`;
-                card.classList.add('removed');
+                currentCard.style.transform = `translate(${endX}px, ${deltaY}px) rotate(${deltaX > 0 ? 30 : -30}deg)`;
+                currentCard.classList.add('removed');
                 setTimeout(() => {
-                    cardContainer.removeChild(card);
+                    cardContainer.removeChild(currentCard);
+                    createNewCard();
                     initCards();
                 }, 300);
             }
         });
-    });
+
+        // Reset card if pan is canceled
+        hammer.on('pancancel', () => {
+            if (isPanActive && currentCard) {
+                currentCard.style.transform = '';
+                isPanActive = false;
+            }
+        });
+    }
+
+    // Initialize existing cards
+    initCards();
+    cards.forEach((card) => attachPanListeners(card));
 
     // Next button functionality
     nextButton.addEventListener('click', () => {
@@ -57,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentCard.style.transform = `translate(${window.innerWidth}px, -100px) rotate(30deg)`;
         setTimeout(() => {
             cardContainer.removeChild(currentCard);
+            createNewCard();
             initCards();
         }, 300);
     });
